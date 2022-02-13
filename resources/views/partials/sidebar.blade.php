@@ -32,14 +32,15 @@
     <div class="scrollbar-sidebar">
         <div class="app-sidebar__inner">
             <ul class="vertical-nav-menu">
-                <!-- <li class="app-sidebar__heading">Dashboards</li> -->
-                <li>
+                @can('view dashboard') <li>
                     <a href="index.html" class="mm-active">
                         <i class="metismenu-icon pe-7s-rocket"></i>
                         Dashboard
                     </a>
                 </li>
+                @endcan
                 <li class="app-sidebar__heading">Modules</li>
+                @can('view user management')
                 <li>
                     <a href="#">
                         <i class="metismenu-icon pe-7s-settings"></i>
@@ -47,27 +48,34 @@
                         <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                     </a>
                     <ul>
+                        @can('view users')
                         <li>
-                            <a href="/user/view">
+                            <a href="/user/">
                                 <i class="metismenu-icon"></i>
                                 User Records
                             </a>
                         </li>
+                        @endcan
+                        @can('create user')
                         <li>
                             <a href="/user/create">
                                 <i class="metismenu-icon">
                                 </i>Create User
                             </a>
                         </li>
+                        @endcan
+                        @can('view roles')
                         <li>
-                            <a href="/role/view">
+                            <a href="/role/">
                                 <i class="metismenu-icon">
                                 </i>User Roles
                             </a>
                         </li>
-                       
+                        @endcan
                     </ul>
                 </li>
+                @endcan
+                @can('view client master data')
                 <li>
                     <a href="#">
                         <i class="metismenu-icon pe-7s-id"></i>
@@ -76,19 +84,21 @@
                     </a>
                     <ul>
                         <li>
-                            <a href="/role/view">
+                            <a href="/client/">
                                 <i class="metismenu-icon"></i>
                                 Client Records
                             </a>
                         </li>
                         <li>
-                            <a href="/role/create">
+                            <a href="/client/create">
                                 <i class="metismenu-icon">
                                 </i>Create new client
                             </a>
-                        </li>                       
+                        </li>
                     </ul>
                 </li>
+                @endcan
+                @can('view project master data')
                 <li>
                     <a href="#">
                         <i class="metismenu-icon pe-7s-car"></i>
@@ -106,19 +116,24 @@
                         <li>
                             <a href="/project/create">
                                 <i class="metismenu-icon">
-                                </i>Register Project 
+                                </i>Register Project
                             </a>
                         </li>
-                        
+
                     </ul>
                 </li>
+                @endcan
                 <li>
-                    <a href="tables-regular.html">
+                    <a href="tables-regular.html" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         <i class="metismenu-icon pe-7s-display2"></i>
-                        System Config
+                        {{ __('Logout') }}
                     </a>
+
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
                 </li>
-                
+
             </ul>
         </div>
     </div>

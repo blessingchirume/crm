@@ -31,6 +31,7 @@
         </div>
     </div>
     <div class="row">
+        @can('view projects total')
         <div class="col-md-6 col-xl-4">
             <div class="card mb-3 widget-content bg-midnight-bloom">
                 <div class="widget-content-wrapper text-white">
@@ -39,11 +40,14 @@
                         <div class="widget-subheading">Year to date Projects</div>
                     </div>
                     <div class="widget-content-right">
-                        <div class="widget-numbers text-white"><span>1896</span></div>
+                        <div class="widget-numbers text-white"><span>{{ $totals['projects'] }}</span></div>
                     </div>
                 </div>
             </div>
         </div>
+        @endcan
+
+        @can('view clients total')
         <div class="col-md-6 col-xl-4">
             <div class="card mb-3 widget-content bg-arielle-smile">
                 <div class="widget-content-wrapper text-white">
@@ -52,11 +56,14 @@
                         <div class="widget-subheading">Total Clients</div>
                     </div>
                     <div class="widget-content-right">
-                        <div class="widget-numbers text-white"><span>189</span></div>
+                        <div class="widget-numbers text-white"><span>{{ $totals['clients'] }}</span></div>
                     </div>
                 </div>
             </div>
         </div>
+        @endcan
+
+        @can('view users total')
         <div class="col-md-6 col-xl-4">
             <div class="card mb-3 widget-content bg-grow-early">
                 <div class="widget-content-wrapper text-white">
@@ -65,11 +72,13 @@
                         <div class="widget-subheading">Total System users</div>
                     </div>
                     <div class="widget-content-right">
-                        <div class="widget-numbers text-white"><span>219</span></div>
+                        <div class="widget-numbers text-white"><span>{{ $totals['users'] }}</span></div>
                     </div>
                 </div>
             </div>
         </div>
+        @endcan
+        
         <div class="d-xl-none d-lg-block col-md-6 col-xl-4">
             <div class="card mb-3 widget-content bg-premium-dark">
                 <div class="widget-content-wrapper text-white">

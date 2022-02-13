@@ -9,8 +9,8 @@
                     <i class="lnr-picture text-danger">
                     </i>
                 </div>
-                <div>User Registration
-                    <div class="page-title-subheading">Here you get to create a new user record within the system.
+                <div>Role Permissions
+                    <div class="page-title-subheading">Here you get to attach permisions to a user role.
                     </div>
                 </div>
             </div>
@@ -70,67 +70,30 @@
     <div class="main-card mb-3 card">
         <div class="card-body">
             <h5 class="card-title"></h5>
-            <form class="needs-validation" action="{{ route('create') }}" method="POST" novalidate>
+            <form class="needs-validation" action="{{ route('create-permission', $role->id) }}" method="POST" novalidate>
                 @csrf
                 <div class="form-row">
                     <div class="col-md-4 mb-3">
-                        <label for="validationCustom01">First name</label>
-                        <input name="name" type="text" class="form-control" id="validationCustom01" placeholder="First name" value="Mark" required>
+                        <label for="validationCustom01">Name</label>
+                        <input name="name" type="text" class="form-control" id="validationCustom01" placeholder="First name" value="{{ $role->name }}" required readonly>
 
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label for="validationCustom02">Last name</label>
-                        <input name="surname" type="text" class="form-control" id="validationCustom02" placeholder="Last name" value="Otto" required>
+                        <label for="validationCustom02">Guard Name</label>
+                        <input name="guard_name" type="text" class="form-control" id="validationCustom02" placeholder="Last name" value="{{ $role->guard_name }}" required readonly>
 
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label for="validationCustomUsername">Email</label>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroupPrepend">@</span>
-                            </div>
-                            <input name="email" type="email" class="form-control" id="validationCustomUsername" placeholder="Username" aria-describedby="inputGroupPrepend" required>
-                            <div class="invalid-feedback">
-                                Please choose a email.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="col-md-4 mb-3">
-                        <label for="validationCustomUsername">Password</label>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroupPrepend">@</span>
-                            </div>
-                            <input name="password" type="text" class="form-control" id="validationCustomPassword" placeholder="Password" aria-describedby="inputGroupPrepend" required>
-                            <div class="invalid-feedback">
-                                Please choose a email.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <label for="validationCustomUsername">Confirm Password</label>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroupPrepend">@</span>
-                            </div>
-                            <input name="confirm-password" type="text" class="form-control" id="validationCustomConfrimPassword" placeholder="Confirm Password" aria-describedby="inputGroupPrepend" required>
-                            <div class="invalid-feedback">
-                                Please choose a email.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <label for="validationCustom05">Role</label>
-                        <select name="role" class="form-control">
-                            @foreach($roles as $role)
-                            <option value="{{ $role->name }}">{{ $role->name }}</option>
+                        <label for="validationCustom05">Please Select Permission</label>
+                        <select name="permission" class="form-control">
+
+                            @foreach($availablePermissions as $permission)
+                            <option value="{{ $permission->name }}">{{ $permission->name }}</option>
                             @endforeach
                         </select>
                         <!-- <input type="text" class="form-control" id="validationCustom05" placeholder="Zip" required> -->
                         <div class="invalid-feedback">
-                            Please provide a valid role.
+                            Please provide a valid permission.
                         </div>
                     </div>
                 </div>
@@ -158,6 +121,52 @@
                     }, false);
                 })();
             </script>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="main-card mb-3 card">
+                <div class="card-header"> Associated Permissions
+                    <div class="btn-actions-pane-right">
+                        <div role="group" class="btn-group-sm btn-group">
+                           
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="align-middle mb-0 table table-bordered  table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th class="text-left">#</th>
+                                <th class="text-left">Name</th>
+                                <th class="text-left">Guard</th>
+                                <th class="text-left">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($permissions as $key => $permission)
+                            <tr>
+                                <td class="text-left text-muted">#{{ $key + 1 }}</td>
+                                <td class="text-left">{{$permission->name}}</td>
+                                <td class="text-left">{{$permission->guard_name}}</td>
+                                <td class="text-left">
+                                    @can('view permission')
+                                    <button class="mr-2 btn-icon btn-icon-only btn btn-outline-success" onclick="location.href='/role/view/{{ $permission->id }}';"><i class="pe-7s-look btn-icon-wrapper"> </i></button>
+                                    @endcan
+                                    @can('delete permission')
+                                    <button class="mr-2 btn-icon btn-icon-only btn btn-outline-danger"><i class="pe-7s-trash btn-icon-wrapper"> </i></button>
+                                    @endcan
+                                </td>
+                            </tr>
+                            @endforeach
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="d-block text-center card-footer">
+                    <button class="btn-wide btn btn-danger" onclick="location.href='/user/create';">Revoke all permissions</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>

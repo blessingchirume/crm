@@ -9,8 +9,8 @@
                     <i class="lnr-picture text-danger">
                     </i>
                 </div>
-                <div>User Registration
-                    <div class="page-title-subheading">Here you get to create a new user record within the system.
+                <div>Edit User
+                    <div class="page-title-subheading">Here you can get to update individual user record.
                     </div>
                 </div>
             </div>
@@ -70,18 +70,21 @@
     <div class="main-card mb-3 card">
         <div class="card-body">
             <h5 class="card-title"></h5>
-            <form class="needs-validation" action="{{ route('create') }}" method="POST" novalidate>
-                @csrf
+            <form class="needs-validation" novalidate>
                 <div class="form-row">
                     <div class="col-md-4 mb-3">
                         <label for="validationCustom01">First name</label>
-                        <input name="name" type="text" class="form-control" id="validationCustom01" placeholder="First name" value="Mark" required>
-
+                        <input type="text" class="form-control" id="validationCustom01" placeholder="First name" value="{{ $user->name }}" required>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
                     </div>
                     <div class="col-md-4 mb-3">
                         <label for="validationCustom02">Last name</label>
-                        <input name="surname" type="text" class="form-control" id="validationCustom02" placeholder="Last name" value="Otto" required>
-
+                        <input type="text" class="form-control" id="validationCustom02" placeholder="Last name" value="{{ $user->surname }}" required>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
                     </div>
                     <div class="col-md-4 mb-3">
                         <label for="validationCustomUsername">Email</label>
@@ -89,53 +92,54 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="inputGroupPrepend">@</span>
                             </div>
-                            <input name="email" type="email" class="form-control" id="validationCustomUsername" placeholder="Username" aria-describedby="inputGroupPrepend" required>
+                            <input type="email" class="form-control" id="validationCustomUsername" placeholder="Username" aria-describedby="inputGroupPrepend" value="{{ $user->email }}" required>
                             <div class="invalid-feedback">
-                                Please choose a email.
+                                Please choose a username.
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="form-row">
-                    <div class="col-md-4 mb-3">
-                        <label for="validationCustomUsername">Password</label>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroupPrepend">@</span>
-                            </div>
-                            <input name="password" type="text" class="form-control" id="validationCustomPassword" placeholder="Password" aria-describedby="inputGroupPrepend" required>
-                            <div class="invalid-feedback">
-                                Please choose a email.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <label for="validationCustomUsername">Confirm Password</label>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroupPrepend">@</span>
-                            </div>
-                            <input name="confirm-password" type="text" class="form-control" id="validationCustomConfrimPassword" placeholder="Confirm Password" aria-describedby="inputGroupPrepend" required>
-                            <div class="invalid-feedback">
-                                Please choose a email.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <label for="validationCustom05">Role</label>
-                        <select name="role" class="form-control">
-                            @foreach($roles as $role)
-                            <option value="{{ $role->name }}">{{ $role->name }}</option>
-                            @endforeach
+
+                    <div class="col-md-6 mb-3">
+                        <label for="validationCustom05">User Type</label>
+                        <select class="form-control">
+                            <option value="{{ $user->organisation }}">current -- {{ $user->organisation }}</option>
+                            <option value="melford">Adminstrative user</option>
+                            <option value="groombridge">Cliental User</option>
+                            <option value="groombridge">Constultant</option>
                         </select>
                         <!-- <input type="text" class="form-control" id="validationCustom05" placeholder="Zip" required> -->
                         <div class="invalid-feedback">
-                            Please provide a valid role.
+                            This field cannot be empty.
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="validationCustom05">Organisation</label>
+                        <select class="form-control">
+                            <option value="{{ $user->organisation }}">current -- {{ $user->organisation }}</option>
+                            <option value="melford">Melford</option>
+                            <option value="groombridge">Groom Bridge</option>
+
+                        </select>
+                        <!-- <input type="text" class="form-control" id="validationCustom05" placeholder="Zip" required> -->
+                        <div class="invalid-feedback">
+                        This field cannot be empty.
                         </div>
                     </div>
                 </div>
-
+                <div class="form-group">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+                        <label class="form-check-label" for="invalidCheck">
+                            Active
+                        </label>
+                    </div>
+                </div>
                 <button class="btn btn-primary" type="submit">Submit form</button>
+                <button class="btn btn-warning" type="submit">Change password</button>
+                <button class="btn btn-danger" type="submit">Delete user</button>
+
             </form>
 
             <script>
@@ -160,5 +164,6 @@
             </script>
         </div>
     </div>
+
 </div>
 @endsection

@@ -9,8 +9,8 @@
                     <i class="lnr-picture text-danger">
                     </i>
                 </div>
-                <div>Edit Project
-                    <div class="page-title-subheading">Here you get to create a new user record within the system.
+                <div>Role Permissions
+                    <div class="page-title-subheading">Here you get to attach permisions to a user role.
                     </div>
                 </div>
             </div>
@@ -70,76 +70,23 @@
     <div class="main-card mb-3 card">
         <div class="card-body">
             <h5 class="card-title"></h5>
-            <form class="needs-validation" novalidate>
+            <form class="needs-validation" action="{{ route('create-role') }}" method="POST" novalidate>
+                @csrf
                 <div class="form-row">
-                    <div class="col-md-4 mb-3">
-                        <label for="validationCustom01">First name</label>
-                        <input type="text" class="form-control" id="validationCustom01" placeholder="First name" value="Mark" required>
-                        <div class="valid-feedback">
-                            Looks good!
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <label for="validationCustom02">Last name</label>
-                        <input type="text" class="form-control" id="validationCustom02" placeholder="Last name" value="Otto" required>
-                        <div class="valid-feedback">
-                            Looks good!
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <label for="validationCustomUsername">Username</label>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroupPrepend">@</span>
-                            </div>
-                            <input type="text" class="form-control" id="validationCustomUsername" placeholder="Username" aria-describedby="inputGroupPrepend" required>
-                            <div class="invalid-feedback">
-                                Please choose a username.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-row">
-
                     <div class="col-md-6 mb-3">
-                        <label for="validationCustom05">User Type</label>
-                        <select class="form-control">
-                            <option value="melford">Adminstrative user</option>
-                            <option value="groombridge">Cliental User</option>
-                            <option value="groombridge">Constultant</option>
-                        </select>
-                        <!-- <input type="text" class="form-control" id="validationCustom05" placeholder="Zip" required> -->
-                        <div class="invalid-feedback">
-                            Please provide a valid zip.
-                        </div>
+                        <label for="validationCustom01">Name</label>
+                        <input name="name" type="text" class="form-control" id="validationCustom01" placeholder="Role name" value="" required>
+
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label for="validationCustom05">Organisation</label>
-                        <select class="form-control">
-                            <option value="melford">Melford</option>
-                            <option value="groombridge">Groom Bridge</option>
+                        <label for="validationCustom02">Guard Name</label>
+                        <input name="guard_name" type="text" class="form-control" id="validationCustom02" placeholder="Guard name" value="web" readonly required >
 
-                        </select>
-                        <!-- <input type="text" class="form-control" id="validationCustom05" placeholder="Zip" required> -->
-                        <div class="invalid-feedback">
-                            Please provide a valid zip.
-                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
-                        <label class="form-check-label" for="invalidCheck">
-                            Active
-                        </label>
-                        <div class="invalid-feedback">
 
-                        </div>
-                    </div>
                 </div>
+
                 <button class="btn btn-primary" type="submit">Submit form</button>
-                <button class="btn btn-warning" type="submit">Change consultant</button>
-                <button class="btn btn-danger" type="submit">Delete project</button>
             </form>
 
             <script>
